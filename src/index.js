@@ -1,3 +1,5 @@
+
+
 let currentMovie
 
 fetch('http://127.0.0.1:3000/movies')
@@ -14,16 +16,30 @@ fetch('http://127.0.0.1:3000/movies')
         displayMovieDetail(movie)
     })
     })
-
-    //first movie to display detail when page loads
     displayMovieDetail(movieList[0])
 
-    toggleButton()
 
-    addBloodAmount()
+    const movieDetailWatched = document.getElementById('watched')
+    movieDetailWatched.addEventListener('click', e => {
+        currentMovie.watched = !currentMovie.watched
+        movieDetailWatched.textContent = currentMovie.watched ? "Watched" : "Unwatched"
+    })
 
+
+    const bloodFormElement = document.getElementById('blood-form')
+    bloodFormElement.addEventListener('submit', e => {
+        e.preventDefault()
+
+        const inputValueElement = document.getElementById('blood-amount')
+        const movieDetailBloodAmount = document.getElementById('amount')
+        currentMovie.blood_amount = currentMovie.blood_amount + Number(inputValueElement.value)  // same as +=
+        movieDetailBloodAmount.textContent = Number(currentMovie.blood_amount)
+
+    bloodFormElement.reset()
+    })
 
 })
+
 
 const displayMovieDetail = movie => {
     currentMovie = movie
@@ -42,42 +58,162 @@ const displayMovieDetail = movie => {
     movieDetailTitle.textContent = movie.title
     movieDetailBloodAmount.textContent = currentMovie.blood_amount
     
-
-    movieDetailWatched.textContent = movie.watched ? "Watched" : "Unwatched"
-}
-
-function toggleButton(){
-
-    const movieDetailWatched = document.getElementById('watched')
-    movieDetailWatched.addEventListener('click', e => {
-        console.log(currentMovie.watched)
-    currentMovie.watched = !currentMovie.watched
     movieDetailWatched.textContent = currentMovie.watched ? "Watched" : "Unwatched"
-    }
-    )
 }
 
 
-function addBloodAmount(){
-
-    const bloodForm = document.getElementById('blood-form')
-    bloodForm.addEventListener('submit', (e) => {
-        e.preventDefault()
-
-        const movieDetailBloodAmount = document.getElementById('amount')
-
-        const bloodInputElement = document.getElementById('blood-amount')
-        currentMovie.blood_amount += Number(bloodInputElement.value)
-        movieDetailBloodAmount.textContent = Number(currentMovie.blood_amount)
 
 
-        bloodForm.reset()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let currentMovie
+
+// fetch('http://127.0.0.1:3000/movies')
+// .then(resp => resp.json())
+// .then(movieList => {
+
+//     movieList.map(movie => {
+//     const imgElement = document.createElement('img')
+//     const movieListNav = document.querySelector('#movie-list')
+//     imgElement.src = movie.image
+//     movieListNav.appendChild(imgElement)
+
+//     imgElement.addEventListener('click', e => {
+//         displayMovieDetail(movie)
+//     })
+//     })
+
+//     //first movie to display detail when page loads
+//     displayMovieDetail(movieList[0])
+
+//     toggleButton()
+
+//     addBloodAmount()
+
+
+// })
+
+// const displayMovieDetail = movie => {
+//     currentMovie = movie
+//     const movieDetailImage = document.getElementById('detail-image')
+//     const movieDetailYearReleased = document.getElementById('year-released')
+//     const movieDetailDescription = document.getElementById('description')
+//     const movieDetailTitle = document.getElementById('title')
+//     const movieDetailWatched = document.getElementById('watched')
+//     const movieDetailBloodAmount = document.getElementById('amount')
+//     const bloodInputElement = document.getElementById('blood-amount')
+
+
+//     movieDetailImage.src = movie.image
+//     movieDetailYearReleased.textContent = movie.release_year
+//     movieDetailDescription.textContent = movie.description
+//     movieDetailTitle.textContent = movie.title
+//     movieDetailBloodAmount.textContent = currentMovie.blood_amount
+    
+
+//     movieDetailWatched.textContent = movie.watched ? "Watched" : "Unwatched"
+// }
+
+// function toggleButton(){
+
+//     const movieDetailWatched = document.getElementById('watched')
+//     movieDetailWatched.addEventListener('click', e => {
+//         console.log(currentMovie.watched)
+//     currentMovie.watched = !currentMovie.watched
+//     movieDetailWatched.textContent = currentMovie.watched ? "Watched" : "Unwatched"
+//     }
+//     )
+// }
+
+
+// function addBloodAmount(){
+
+//     const bloodForm = document.getElementById('blood-form')
+//     bloodForm.addEventListener('submit', (e) => {
+//         e.preventDefault()
+
+//         const movieDetailBloodAmount = document.getElementById('amount')
+
+//         const bloodInputElement = document.getElementById('blood-amount')
+//         currentMovie.blood_amount += Number(bloodInputElement.value)
+//         movieDetailBloodAmount.textContent = Number(currentMovie.blood_amount)
+
+
+//         bloodForm.reset()
         
 
-    })
+//     })
 
 
-}
+// }
 
 
 
