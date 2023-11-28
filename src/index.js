@@ -1,73 +1,212 @@
+
 let currentMovie
+//1 - fetch data. iterate  forEach image, create img element
+// append to nav element
 
 fetch('http://127.0.0.1:3000/movies')
 .then(resp => resp.json())
 .then(movieList => {
 
     movieList.forEach(movie => {
-        const imgElement = document.createElement('img')
-        const movieListElement = document.getElementById('movie-list')
-        imgElement.src = movie.image
-        movieListElement.appendChild(imgElement)
-
-        imgElement.addEventListener('click', e => {
-            displayDetail(movie)
-        })
+        addMovieImage(movie)
     })
 
-    displayDetail(movieList[0])
+    displayMovieDetail(movieList[0])
 
-    toggleButton()
+    toggleWatchButton()
 
-
-    const formElement = document.getElementById('blood-form')
-    formElement.addEventListener('submit', e => {
-        e.preventDefault()
-
-        const bloodAmount = document.getElementById('amount')
-        const bloodInput = document.getElementById('blood-amount')
-
-        currentMovie.blood_amount += Number(bloodInput.value)
-        bloodAmount.textContent = currentMovie.blood_amount
-
-
-        formElement.reset()
-    })
-
-
-
+    addBloodDrop()
 
 
 })
 
-function displayDetail(movie){
-    currentMovie = movie
-    const title = document.getElementById('title')
-    const year = document.getElementById('year-released')
-    const description = document.getElementById('description')
-    const watched = document.getElementById('watched')
-    const blood = document.getElementById('amount')
 
-    title.textContent = movie.title
-    year.textContent = movie.release_year
-    description.textContent = movie.description
-    watched.textContent = currentMovie.watched ? "Watched" : "Unwatched"
-    blood.textContent = currentMovie.blood_amount
-
+//function for 1
+function addMovieImage(movie){
+    const imgElement = document.createElement('img')
+        imgElement.src = movie.image
+    const imgNavElement = document.getElementById('movie-list')
+    imgNavElement.appendChild(imgElement)
+    //3
+    imgElement.addEventListener('click', e => {
+        displayMovieDetail(movie)
+    })
 }
 
+//2. get elements for details. set each elements to properties from data
+function displayMovieDetail(movie){
+    currentMovie = movie
 
-
-function toggleButton(){
+    const detailImage = document.getElementById('detail-image')
+    const detailTitle = document.getElementById('title')
+    const detailYearReleased = document.getElementById('year-released')
+    const detailDescription = document.getElementById('description')
+    const detailButton = document.getElementById('watched')
+    const detailBloodAmount = document.getElementById('amount')
+    detailImage.src = currentMovie.image
+    detailTitle.textContent = movie.detail
+    detailYearReleased.textContent = movie.release_year
+    detailDescription.textContent = movie.description
+    detailButton.textContent = movie.watched? "Watched" : "Unwatched"
+    detailBloodAmount.textContent = currentMovie.blood_amount
+}
+//get button element, ternary, = !
+function toggleWatchButton(){
     const buttonElement = document.getElementById('watched')
-
     buttonElement.addEventListener('click', e => {
-    currentMovie.watched = !currentMovie.watched
-    buttonElement.textContent = currentMovie.watched? "Watched" : "Unwatched"
+        currentMovie.watched = !currentMovie.watched
+        buttonElement.textContent = currentMovie.watched ? "Watched" : "Unwatched"
+    })
+}
+
+//5 form addevent. get elements of input, total and set text content of total. number, currentmovie
+function addBloodDrop(){
+    const bloodForm = document.getElementById('blood-form')
+    bloodForm.addEventListener('submit', e =>{
+        e.preventDefault()
+
+        const bloodAmount = document.getElementById('amount')
+        const inputValue = document.getElementById('blood-amount')
+
+        currentMovie.blood_amount += Number(inputValue.value)
+        bloodAmount.textContent = currentMovie.blood_amount
+
+        inputValue.value = ' '
 
 
     })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let currentMovie
+
+// fetch('http://127.0.0.1:3000/movies')
+// .then(resp => resp.json())
+// .then(movieList => {
+
+//     movieList.forEach(movie => {
+//         const imgElement = document.createElement('img')
+//         const movieListElement = document.getElementById('movie-list')
+//         imgElement.src = movie.image
+//         movieListElement.appendChild(imgElement)
+
+//         imgElement.addEventListener('click', e => {
+//             displayDetail(movie)
+//         })
+//     })
+
+//     displayDetail(movieList[0])
+
+//     toggleButton()
+
+
+//     const formElement = document.getElementById('blood-form')
+//     formElement.addEventListener('submit', e => {
+//         e.preventDefault()
+
+//         const bloodAmount = document.getElementById('amount')
+//         const bloodInput = document.getElementById('blood-amount')
+
+//         currentMovie.blood_amount += Number(bloodInput.value)
+//         bloodAmount.textContent = currentMovie.blood_amount
+
+
+//         formElement.reset()
+//     })
+
+
+
+
+
+// })
+
+// function displayDetail(movie){
+//     currentMovie = movie
+//     const title = document.getElementById('title')
+//     const year = document.getElementById('year-released')
+//     const description = document.getElementById('description')
+//     const watched = document.getElementById('watched')
+//     const blood = document.getElementById('amount')
+
+//     title.textContent = movie.title
+//     year.textContent = movie.release_year
+//     description.textContent = movie.description
+//     watched.textContent = currentMovie.watched ? "Watched" : "Unwatched"
+//     blood.textContent = currentMovie.blood_amount
+
+// }
+
+
+
+// function toggleButton(){
+//     const buttonElement = document.getElementById('watched')
+
+//     buttonElement.addEventListener('click', e => {
+//     currentMovie.watched = !currentMovie.watched
+//     buttonElement.textContent = currentMovie.watched? "Watched" : "Unwatched"
+
+
+//     })
+// }
 
 
 
